@@ -55,8 +55,6 @@ class FlBorderData {
       border: Border.lerp(a.border, b.border, t),
     );
   }
-
-  
 }
 
 /***** TouchData *****/

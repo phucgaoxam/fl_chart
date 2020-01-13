@@ -46,10 +46,12 @@ class PieChartData extends BaseChartData {
       return PieChartData(
         borderData: FlBorderData.lerp(a.borderData, b.borderData, t),
         centerSpaceColor: Color.lerp(a.centerSpaceColor, b.centerSpaceColor, t),
-        centerSpaceRadius: lerpDouble(a.centerSpaceRadius, b.centerSpaceRadius, t),
+        centerSpaceRadius:
+            lerpDouble(a.centerSpaceRadius, b.centerSpaceRadius, t),
         pieTouchData: b.pieTouchData,
         sectionsSpace: lerpDouble(a.sectionsSpace, b.sectionsSpace, t),
-        startDegreeOffset: lerpDouble(a.startDegreeOffset, b.startDegreeOffset, t),
+        startDegreeOffset:
+            lerpDouble(a.startDegreeOffset, b.startDegreeOffset, t),
         sections: lerpPieChartSectionDataList(a.sections, b.sections, t),
       );
     } else {
@@ -115,13 +117,15 @@ class PieChartSectionData {
     );
   }
 
-  static PieChartSectionData lerp(PieChartSectionData a, PieChartSectionData b, double t) {
+  static PieChartSectionData lerp(
+      PieChartSectionData a, PieChartSectionData b, double t) {
     return PieChartSectionData(
       color: Color.lerp(a.color, b.color, t),
       radius: lerpDouble(a.radius, b.radius, t),
       showTitle: b.showTitle,
       title: b.title,
-      titlePositionPercentageOffset: lerpDouble(a.titlePositionPercentageOffset, b.titlePositionPercentageOffset, t),
+      titlePositionPercentageOffset: lerpDouble(
+          a.titlePositionPercentageOffset, b.titlePositionPercentageOffset, t),
       titleStyle: TextStyle.lerp(a.titleStyle, b.titleStyle, t),
       value: lerpDouble(a.value, b.value, t),
     );
@@ -130,10 +134,9 @@ class PieChartSectionData {
 
 /// holds data for handling touch events on the [PieChart]
 class PieTouchData extends FlTouchData {
-
   /// you can implement it to receive touches callback
   final Function(PieTouchResponse) touchCallback;
-  
+
   const PieTouchData({
     bool enabled = true,
     bool enableNormalTouch = true,
@@ -166,10 +169,9 @@ class PieTouchResponse extends BaseTouchResponse {
 }
 
 class PieChartDataTween extends Tween<PieChartData> {
-
-  PieChartDataTween({PieChartData begin, PieChartData end}) : super(begin: begin, end: end);
+  PieChartDataTween({PieChartData begin, PieChartData end})
+      : super(begin: begin, end: end);
 
   @override
   PieChartData lerp(double t) => begin.lerp(begin, end, t);
-
 }

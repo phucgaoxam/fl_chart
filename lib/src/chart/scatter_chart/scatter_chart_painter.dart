@@ -8,17 +8,15 @@ import 'package:flutter/widgets.dart';
 import '../../utils/utils.dart';
 import 'scatter_chart_data.dart';
 
-class ScatterChartPainter extends AxisChartPainter<ScatterChartData> with TouchHandler<ScatterTouchResponse> {
-
+class ScatterChartPainter extends AxisChartPainter<ScatterChartData>
+    with TouchHandler<ScatterTouchResponse> {
   /// [spotsPaint] is responsible to draw scatter spots
   Paint spotsPaint, bgTouchTooltipPaint;
 
-  ScatterChartPainter(
-    ScatterChartData data,
-    ScatterChartData targetData,
-    Function(TouchHandler) touchHandler,
-    {double textScale}
-    ) : super(data, targetData, textScale: textScale) {
+  ScatterChartPainter(ScatterChartData data, ScatterChartData targetData,
+      Function(TouchHandler) touchHandler,
+      {double textScale})
+      : super(data, targetData, textScale: textScale) {
     touchHandler(this);
 
     spotsPaint = Paint()..style = PaintingStyle.fill;
@@ -26,7 +24,6 @@ class ScatterChartPainter extends AxisChartPainter<ScatterChartData> with TouchH
     bgTouchTooltipPaint = Paint()
       ..style = PaintingStyle.fill
       ..color = Colors.white;
-
   }
 
   @override
@@ -37,13 +34,14 @@ class ScatterChartPainter extends AxisChartPainter<ScatterChartData> with TouchH
     drawTitles(canvas, size);
     drawSpots(canvas, size);
 
-    for(int i = 0; i < targetData.scatterSpots.length; i++) {
+    for (int i = 0; i < targetData.scatterSpots.length; i++) {
       if (!targetData.showingTooltipIndicators.contains(i)) {
         continue;
       }
 
       final ScatterSpot scatterSpot = targetData.scatterSpots[i];
-      drawTouchTooltip(canvas, size, targetData.scatterTouchData.touchTooltipData, scatterSpot);
+      drawTouchTooltip(canvas, size,
+          targetData.scatterTouchData.touchTooltipData, scatterSpot);
     }
   }
 
@@ -64,8 +62,11 @@ class ScatterChartPainter extends AxisChartPainter<ScatterChartData> with TouchH
         final String text = leftTitles.getTitles(verticalSeek);
 
         final TextSpan span = TextSpan(style: leftTitles.textStyle, text: text);
-        final TextPainter tp =
-        TextPainter(text: span, textAlign: TextAlign.center, textDirection: TextDirection.ltr, textScaleFactor: textScale);
+        final TextPainter tp = TextPainter(
+            text: span,
+            textAlign: TextAlign.center,
+            textDirection: TextDirection.ltr,
+            textScaleFactor: textScale);
         tp.layout(maxWidth: getExtraNeededHorizontalSpace());
         x -= tp.width + leftTitles.margin;
         y -= tp.height / 2;
@@ -92,8 +93,11 @@ class ScatterChartPainter extends AxisChartPainter<ScatterChartData> with TouchH
         final String text = topTitles.getTitles(horizontalSeek);
 
         final TextSpan span = TextSpan(style: topTitles.textStyle, text: text);
-        final TextPainter tp =
-        TextPainter(text: span, textAlign: TextAlign.center, textDirection: TextDirection.ltr, textScaleFactor: textScale);
+        final TextPainter tp = TextPainter(
+            text: span,
+            textAlign: TextAlign.center,
+            textDirection: TextDirection.ltr,
+            textScaleFactor: textScale);
         tp.layout();
 
         x -= tp.width / 2;
@@ -120,9 +124,13 @@ class ScatterChartPainter extends AxisChartPainter<ScatterChartData> with TouchH
 
         final String text = rightTitles.getTitles(verticalSeek);
 
-        final TextSpan span = TextSpan(style: rightTitles.textStyle, text: text);
-        final TextPainter tp =
-        TextPainter(text: span, textAlign: TextAlign.center, textDirection: TextDirection.ltr, textScaleFactor: textScale);
+        final TextSpan span =
+            TextSpan(style: rightTitles.textStyle, text: text);
+        final TextPainter tp = TextPainter(
+            text: span,
+            textAlign: TextAlign.center,
+            textDirection: TextDirection.ltr,
+            textScaleFactor: textScale);
         tp.layout(maxWidth: getExtraNeededHorizontalSpace());
 
         x += rightTitles.margin;
@@ -149,9 +157,13 @@ class ScatterChartPainter extends AxisChartPainter<ScatterChartData> with TouchH
 
         final String text = bottomTitles.getTitles(horizontalSeek);
 
-        final TextSpan span = TextSpan(style: bottomTitles.textStyle, text: text);
-        final TextPainter tp =
-        TextPainter(text: span, textAlign: TextAlign.center, textDirection: TextDirection.ltr, textScaleFactor: textScale);
+        final TextSpan span =
+            TextSpan(style: bottomTitles.textStyle, text: text);
+        final TextPainter tp = TextPainter(
+            text: span,
+            textAlign: TextAlign.center,
+            textDirection: TextDirection.ltr,
+            textScaleFactor: textScale);
         tp.layout();
 
         x -= tp.width / 2;
@@ -188,20 +200,24 @@ class ScatterChartPainter extends AxisChartPainter<ScatterChartData> with TouchH
     }
   }
 
-  void drawTouchTooltip(Canvas canvas, Size viewSize, ScatterTouchTooltipData tooltipData,
-    ScatterSpot showOnSpot) {
-
+  void drawTouchTooltip(Canvas canvas, Size viewSize,
+      ScatterTouchTooltipData tooltipData, ScatterSpot showOnSpot) {
     final Size chartUsableSize = getChartUsableDrawSize(viewSize);
 
-    final ScatterTooltipItem tooltipItem = tooltipData.getTooltipItems(showOnSpot);
+    final ScatterTooltipItem tooltipItem =
+        tooltipData.getTooltipItems(showOnSpot);
 
     if (tooltipItem == null) {
       return;
     }
 
-    final TextSpan span = TextSpan(style: tooltipItem.textStyle, text: tooltipItem.text);
-    final TextPainter drawingTextPainter =
-    TextPainter(text: span, textAlign: TextAlign.center, textDirection: TextDirection.ltr, textScaleFactor: textScale);
+    final TextSpan span =
+        TextSpan(style: tooltipItem.textStyle, text: tooltipItem.text);
+    final TextPainter drawingTextPainter = TextPainter(
+        text: span,
+        textAlign: TextAlign.center,
+        textDirection: TextDirection.ltr,
+        textScaleFactor: textScale);
     drawingTextPainter.layout(maxWidth: tooltipData.maxContentWidth);
 
     final width = drawingTextPainter.width;
@@ -220,13 +236,16 @@ class ScatterChartPainter extends AxisChartPainter<ScatterChartData> with TouchH
 
     /// draw the background rect with rounded radius
     final Rect rect = Rect.fromLTWH(
-      mostTopOffset.dx - (tooltipWidth / 2),
-      mostTopOffset.dy - tooltipHeight - tooltipItem.bottomMargin,
-      tooltipWidth,
-      tooltipHeight);
+        mostTopOffset.dx - (tooltipWidth / 2),
+        mostTopOffset.dy - tooltipHeight - tooltipItem.bottomMargin,
+        tooltipWidth,
+        tooltipHeight);
     final Radius radius = Radius.circular(tooltipData.tooltipRoundedRadius);
     final RRect roundedRect = RRect.fromRectAndCorners(rect,
-      topLeft: radius, topRight: radius, bottomLeft: radius, bottomRight: radius);
+        topLeft: radius,
+        topRight: radius,
+        bottomLeft: radius,
+        bottomRight: radius);
     bgTouchTooltipPaint.color = tooltipData.tooltipBgColor;
     canvas.drawRRect(roundedRect, bgTouchTooltipPaint);
 
@@ -313,7 +332,6 @@ class ScatterChartPainter extends AxisChartPainter<ScatterChartData> with TouchH
 
   @override
   ScatterTouchResponse handleTouch(FlTouchInput touchInput, Size size) {
-
     final Size chartViewSize = getChartUsableDrawSize(size);
 
     for (int i = 0; i < data.scatterSpots.length; i++) {
@@ -322,8 +340,10 @@ class ScatterChartPainter extends AxisChartPainter<ScatterChartData> with TouchH
       final spotPixelX = getPixelX(spot.x, chartViewSize);
       final spotPixelY = getPixelY(spot.y, chartViewSize);
 
-      if ((touchInput.getOffset().dx - spotPixelX).abs() <= (spot.radius / 2) + data.scatterTouchData.touchSpotThreshold
-        && (touchInput.getOffset().dy - spotPixelY).abs() <= (spot.radius / 2) + data.scatterTouchData.touchSpotThreshold) {
+      if ((touchInput.getOffset().dx - spotPixelX).abs() <=
+              (spot.radius / 2) + data.scatterTouchData.touchSpotThreshold &&
+          (touchInput.getOffset().dy - spotPixelY).abs() <=
+              (spot.radius / 2) + data.scatterTouchData.touchSpotThreshold) {
         return ScatterTouchResponse(touchInput, spot, i);
       }
     }
@@ -332,5 +352,6 @@ class ScatterChartPainter extends AxisChartPainter<ScatterChartData> with TouchH
   }
 
   @override
-  bool shouldRepaint(ScatterChartPainter oldDelegate) => oldDelegate.data != data;
+  bool shouldRepaint(ScatterChartPainter oldDelegate) =>
+      oldDelegate.data != data;
 }

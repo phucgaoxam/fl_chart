@@ -86,8 +86,8 @@ class LineChartSample7 extends StatelessWidget {
           ],
           betweenBarsData: [
             BetweenBarsData(
-                fromIndex: 0,
-                toIndex: 2,
+              fromIndex: 0,
+              toIndex: 2,
               colors: [Colors.red.withOpacity(0.3)],
             )
           ],
@@ -95,8 +95,10 @@ class LineChartSample7 extends StatelessWidget {
           titlesData: FlTitlesData(
             bottomTitles: SideTitles(
                 showTitles: true,
-                textStyle:
-                    TextStyle(fontSize: 10, color: Colors.purple, fontWeight: FontWeight.bold),
+                textStyle: TextStyle(
+                    fontSize: 10,
+                    color: Colors.purple,
+                    fontWeight: FontWeight.bold),
                 getTitles: (value) {
                   switch (value.toInt()) {
                     case 0:

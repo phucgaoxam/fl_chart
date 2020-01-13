@@ -34,7 +34,6 @@ class LineChartState extends AnimatedWidgetBaseState<LineChart> {
 
   @override
   Widget build(BuildContext context) {
-
     final LineChartData showingData = _getDate();
     final LineTouchData touchData = showingData.lineTouchData;
 
@@ -45,8 +44,8 @@ class LineChartState extends AnimatedWidgetBaseState<LineChart> {
           return;
         }
 
-        final LineTouchResponse response =
-        _touchHandler?.handleTouch(FlLongPressStart(d.localPosition), chartSize);
+        final LineTouchResponse response = _touchHandler?.handleTouch(
+            FlLongPressStart(d.localPosition), chartSize);
         if (_canHandleTouch(response, touchData)) {
           touchData.touchCallback(response);
         }
@@ -57,8 +56,8 @@ class LineChartState extends AnimatedWidgetBaseState<LineChart> {
           return;
         }
 
-        final LineTouchResponse response =
-        _touchHandler?.handleTouch(FlLongPressEnd(d.localPosition), chartSize);
+        final LineTouchResponse response = _touchHandler?.handleTouch(
+            FlLongPressEnd(d.localPosition), chartSize);
         if (_canHandleTouch(response, touchData)) {
           touchData.touchCallback(response);
         }
@@ -69,8 +68,8 @@ class LineChartState extends AnimatedWidgetBaseState<LineChart> {
           return;
         }
 
-        final LineTouchResponse response =
-        _touchHandler?.handleTouch(FlLongPressMoveUpdate(d.localPosition), chartSize);
+        final LineTouchResponse response = _touchHandler?.handleTouch(
+            FlLongPressMoveUpdate(d.localPosition), chartSize);
         if (_canHandleTouch(response, touchData)) {
           touchData.touchCallback(response);
         }
@@ -81,8 +80,9 @@ class LineChartState extends AnimatedWidgetBaseState<LineChart> {
           return;
         }
 
-        final LineTouchResponse response =
-        _touchHandler?.handleTouch(FlPanEnd(Offset.zero, Velocity(pixelsPerSecond: Offset.zero)), chartSize);
+        final LineTouchResponse response = _touchHandler?.handleTouch(
+            FlPanEnd(Offset.zero, Velocity(pixelsPerSecond: Offset.zero)),
+            chartSize);
         if (_canHandleTouch(response, touchData)) {
           touchData.touchCallback(response);
         }
@@ -93,8 +93,8 @@ class LineChartState extends AnimatedWidgetBaseState<LineChart> {
           return;
         }
 
-        final LineTouchResponse response =
-        _touchHandler?.handleTouch(FlPanEnd(Offset.zero, details.velocity), chartSize);
+        final LineTouchResponse response = _touchHandler?.handleTouch(
+            FlPanEnd(Offset.zero, details.velocity), chartSize);
         if (_canHandleTouch(response, touchData)) {
           touchData.touchCallback(response);
         }
@@ -105,8 +105,8 @@ class LineChartState extends AnimatedWidgetBaseState<LineChart> {
           return;
         }
 
-        final LineTouchResponse response =
-        _touchHandler?.handleTouch(FlPanStart(details.localPosition), chartSize);
+        final LineTouchResponse response = _touchHandler?.handleTouch(
+            FlPanStart(details.localPosition), chartSize);
         if (_canHandleTouch(response, touchData)) {
           touchData.touchCallback(response);
         }
@@ -117,8 +117,8 @@ class LineChartState extends AnimatedWidgetBaseState<LineChart> {
           return;
         }
 
-        final LineTouchResponse response =
-        _touchHandler?.handleTouch(FlPanMoveUpdate(details.localPosition), chartSize);
+        final LineTouchResponse response = _touchHandler?.handleTouch(
+            FlPanMoveUpdate(details.localPosition), chartSize);
         if (_canHandleTouch(response, touchData)) {
           touchData.touchCallback(response);
         }
@@ -128,8 +128,7 @@ class LineChartState extends AnimatedWidgetBaseState<LineChart> {
         size: getDefaultSize(context),
         painter: LineChartPainter(
             _withTouchedIndicators(_lineChartDataTween.evaluate(animation)),
-            _withTouchedIndicators(showingData),
-            (touchHandler) {
+            _withTouchedIndicators(showingData), (touchHandler) {
           setState(() {
             _touchHandler = touchHandler;
           });
@@ -139,7 +138,9 @@ class LineChartState extends AnimatedWidgetBaseState<LineChart> {
   }
 
   bool _canHandleTouch(LineTouchResponse response, LineTouchData touchData) {
-    return response != null && touchData != null && touchData.touchCallback != null;
+    return response != null &&
+        touchData != null &&
+        touchData.touchCallback != null;
   }
 
   LineChartData _withTouchedIndicators(LineChartData lineChartData) {
@@ -147,7 +148,8 @@ class LineChartState extends AnimatedWidgetBaseState<LineChart> {
       return lineChartData;
     }
 
-    if (!lineChartData.lineTouchData.enabled || !lineChartData.lineTouchData.handleBuiltInTouches) {
+    if (!lineChartData.lineTouchData.enabled ||
+        !lineChartData.lineTouchData.handleBuiltInTouches) {
       return lineChartData;
     }
 
@@ -164,7 +166,8 @@ class LineChartState extends AnimatedWidgetBaseState<LineChart> {
 
   Size _getChartSize() {
     if (_chartKey.currentContext != null) {
-      final RenderBox containerRenderBox = _chartKey.currentContext.findRenderObject();
+      final RenderBox containerRenderBox =
+          _chartKey.currentContext.findRenderObject();
       if (containerRenderBox.hasSize) {
         return containerRenderBox.size;
       }
@@ -178,7 +181,8 @@ class LineChartState extends AnimatedWidgetBaseState<LineChart> {
     final lineTouchData = widget.data.lineTouchData;
     if (lineTouchData.enabled && lineTouchData.handleBuiltInTouches) {
       return widget.data.copyWith(
-        lineTouchData: widget.data.lineTouchData.copyWith(touchCallback: _handleBuiltInTouch),
+        lineTouchData: widget.data.lineTouchData
+            .copyWith(touchCallback: _handleBuiltInTouch),
       );
     }
     return widget.data;

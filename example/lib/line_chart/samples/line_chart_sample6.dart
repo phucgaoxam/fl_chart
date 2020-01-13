@@ -47,14 +47,16 @@ class LineChartSample6 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration:
-          BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
-        BoxShadow(
-          color: Colors.black,
-          blurRadius: 10,
-          spreadRadius: 0,
-        )
-      ]),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black,
+              blurRadius: 10,
+              spreadRadius: 0,
+            )
+          ]),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -115,7 +117,8 @@ class LineChartSample6 extends StatelessWidget {
                   leftTitles: SideTitles(
                     showTitles: true,
                     getTitles: (double value) {
-                      final intValue = reverseY(value, minSpotY, maxSpotY).toInt();
+                      final intValue =
+                          reverseY(value, minSpotY, maxSpotY).toInt();
 
                       if (intValue == (maxSpotY + minSpotY)) {
                         return '';
@@ -124,14 +127,17 @@ class LineChartSample6 extends StatelessWidget {
                       return intValue.toString();
                     },
                     textStyle: const TextStyle(
-                        color: Colors.deepOrange, fontWeight: FontWeight.bold, fontSize: 18),
+                        color: Colors.deepOrange,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
                     margin: 16,
                   ),
                   rightTitles: SideTitles(
                     showTitles: true,
                     reservedSize: 0,
                     getTitles: (double value) {
-                      final intValue = reverseY(value, minSpotY, maxSpotY).toInt();
+                      final intValue =
+                          reverseY(value, minSpotY, maxSpotY).toInt();
 
                       if (intValue == (maxSpotY + minSpotY)) {
                         return '';
@@ -140,7 +146,9 @@ class LineChartSample6 extends StatelessWidget {
                       return intValue.toString();
                     },
                     textStyle: const TextStyle(
-                        color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 18),
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
                     margin: 16,
                   ),
                   bottomTitles: const SideTitles(showTitles: false),
@@ -148,7 +156,8 @@ class LineChartSample6 extends StatelessWidget {
                     showTitles: true,
                     reservedSize: 28,
                     margin: 8,
-                    textStyle: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                    textStyle: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black),
                     getTitles: (double value) {
                       return value.toInt().toString();
                     },
@@ -158,7 +167,8 @@ class LineChartSample6 extends StatelessWidget {
                     show: true,
                     drawVerticalLine: true,
                     checkToShowHorizontalLine: (value) {
-                      final intValue = reverseY(value, minSpotY, maxSpotY).toInt();
+                      final intValue =
+                          reverseY(value, minSpotY, maxSpotY).toInt();
 
                       if (intValue.toInt() == (maxSpotY + minSpotY).toInt()) {
                         return false;

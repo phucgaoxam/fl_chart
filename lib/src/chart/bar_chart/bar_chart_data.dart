@@ -123,7 +123,8 @@ class BarChartData extends AxisChartData {
         groupsSpace: lerpDouble(a.groupsSpace, b.groupsSpace, t),
         alignment: b.alignment,
         titlesData: FlTitlesData.lerp(a.titlesData, b.titlesData, t),
-        axisTitleData: FlAxisTitleData.lerp(a.axisTitleData, b.axisTitleData, t),
+        axisTitleData:
+            FlAxisTitleData.lerp(a.axisTitleData, b.axisTitleData, t),
         barTouchData: b.barTouchData,
         gridData: FlGridData.lerp(a.gridData, b.gridData, t),
         borderData: FlBorderData.lerp(a.borderData, b.borderData, t),
@@ -158,6 +159,7 @@ class BarChartGroupData {
   final List<BarChartRodData> barRods;
   final double barsSpace;
   final List<int> showingTooltipIndicators;
+  final TextStyle titleValueStyle;
 
   /// the [x] is the whole group x,
   /// [barRods] are our vertical bar lines, that each of them contains a y value,
@@ -168,6 +170,7 @@ class BarChartGroupData {
     @required this.x,
     this.barRods = const [],
     this.barsSpace = 2,
+    this.titleValueStyle,
     this.showingTooltipIndicators = const [],
   }) : assert(x != null);
 
@@ -178,8 +181,9 @@ class BarChartGroupData {
       return 0;
     }
 
-    final double sumWidth =
-        barRods.map((rodData) => rodData.width).reduce((first, second) => first + second);
+    final double sumWidth = barRods
+        .map((rodData) => rodData.width)
+        .reduce((first, second) => first + second);
     final double spaces = (barRods.length - 1) * barsSpace;
 
     return sumWidth + spaces;
@@ -190,21 +194,26 @@ class BarChartGroupData {
     List<BarChartRodData> barRods,
     double barsSpace,
     List<int> showingTooltipIndicators,
+    TextStyle titleValueStyle,
   }) {
     return BarChartGroupData(
       x: x ?? this.x,
       barRods: barRods ?? this.barRods,
       barsSpace: barsSpace ?? this.barsSpace,
-      showingTooltipIndicators: showingTooltipIndicators ?? this.showingTooltipIndicators,
+      showingTooltipIndicators:
+          showingTooltipIndicators ?? this.showingTooltipIndicators,
+      titleValueStyle: titleValueStyle ?? this.titleValueStyle,
     );
   }
 
-  static BarChartGroupData lerp(BarChartGroupData a, BarChartGroupData b, double t) {
+  static BarChartGroupData lerp(
+      BarChartGroupData a, BarChartGroupData b, double t) {
     return BarChartGroupData(
       x: (a.x + (b.x - a.x) * t).round(),
       barRods: lerpBarChartRodDataList(a.barRods, b.barRods, t),
       barsSpace: lerpDouble(a.barsSpace, b.barsSpace, t),
-      showingTooltipIndicators: lerpIntList(a.showingTooltipIndicators, b.showingTooltipIndicators, t),
+      showingTooltipIndicators: lerpIntList(
+          a.showingTooltipIndicators, b.showingTooltipIndicators, t),
     );
   }
 }
@@ -220,6 +229,7 @@ class BarChartRodData {
   final bool isRound;
   final BackgroundBarChartRodData backDrawRodData;
   final List<BarChartRodStackItem> rodStackItem;
+  final String title;
 
   const BarChartRodData({
     this.y,
@@ -228,6 +238,7 @@ class BarChartRodData {
     this.isRound = true,
     this.backDrawRodData = const BackgroundBarChartRodData(),
     this.rodStackItem = const [],
+    this.title,
   });
 
   BarChartRodData copyWith({
@@ -237,6 +248,7 @@ class BarChartRodData {
     bool isRound,
     BackgroundBarChartRodData backDrawRodData,
     List<BarChartRodStackItem> rodStackItem,
+    String title,
   }) {
     return BarChartRodData(
       y: y ?? this.y,
@@ -245,6 +257,7 @@ class BarChartRodData {
       isRound: isRound ?? this.isRound,
       backDrawRodData: backDrawRodData ?? this.backDrawRodData,
       rodStackItem: rodStackItem ?? this.rodStackItem,
+      title: title ?? this.title,
     );
   }
 
@@ -254,7 +267,8 @@ class BarChartRodData {
       width: lerpDouble(a.width, b.width, t),
       isRound: b.isRound,
       y: lerpDouble(a.y, b.y, t),
-      backDrawRodData: BackgroundBarChartRodData.lerp(a.backDrawRodData, b.backDrawRodData, t),
+      backDrawRodData: BackgroundBarChartRodData.lerp(
+          a.backDrawRodData, b.backDrawRodData, t),
       rodStackItem: lerpBarChartRodStackList(a.rodStackItem, b.rodStackItem, t),
     );
   }
@@ -280,7 +294,8 @@ class BarChartRodStackItem {
     );
   }
 
-  static BarChartRodStackItem lerp(BarChartRodStackItem a, BarChartRodStackItem b, double t) {
+  static BarChartRodStackItem lerp(
+      BarChartRodStackItem a, BarChartRodStackItem b, double t) {
     return BarChartRodStackItem(
       lerpDouble(a.fromY, b.fromY, t),
       lerpDouble(a.toY, b.toY, t),
@@ -355,14 +370,13 @@ class BarTouchData extends FlTouchData {
       enableNormalTouch: enableNormalTouch ?? this.enableNormalTouch,
       touchTooltipData: touchTooltipData ?? this.touchTooltipData,
       touchExtraThreshold: touchExtraThreshold ?? this.touchExtraThreshold,
-      allowTouchBarBackDraw: allowTouchBarBackDraw ?? this.allowTouchBarBackDraw,
+      allowTouchBarBackDraw:
+          allowTouchBarBackDraw ?? this.allowTouchBarBackDraw,
       handleBuiltInTouches: handleBuiltInTouches ?? this.handleBuiltInTouches,
       touchCallback: touchCallback ?? this.touchCallback,
     );
   }
-
 }
-
 
 /// Holds information for showing tooltip on axis based charts
 /// when a touch event happened
@@ -378,7 +392,7 @@ class BarTouchTooltipData {
     this.tooltipBgColor = Colors.white,
     this.tooltipRoundedRadius = 4,
     this.tooltipPadding =
-    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     this.tooltipBottomMargin = 16,
     this.maxContentWidth = 120,
     this.getTooltipItem = defaultBarTooltipItem,
@@ -390,14 +404,18 @@ class BarTouchTooltipData {
 /// if user touched the chart, we show a tooltip window on the most top [TouchSpot],
 /// here we get the [BarTooltipItem] from the given [TouchedSpot].
 typedef GetBarTooltipItem = BarTooltipItem Function(
-  BarChartGroupData group, int groupIndex,
-  BarChartRodData rod, int rodIndex,
-  );
+  BarChartGroupData group,
+  int groupIndex,
+  BarChartRodData rod,
+  int rodIndex,
+);
 
 BarTooltipItem defaultBarTooltipItem(
-  BarChartGroupData group, int groupIndex,
-  BarChartRodData rod, int rodIndex,
-  ) {
+  BarChartGroupData group,
+  int groupIndex,
+  BarChartRodData rod,
+  int rodIndex,
+) {
   final TextStyle textStyle = TextStyle(
     color: Colors.black,
     fontWeight: FontWeight.bold,
@@ -451,10 +469,9 @@ class BarTouchedSpot extends TouchedSpot {
 }
 
 class BarChartDataTween extends Tween<BarChartData> {
-
-  BarChartDataTween({BarChartData begin, BarChartData end}) : super(begin: begin, end: end);
+  BarChartDataTween({BarChartData begin, BarChartData end})
+      : super(begin: begin, end: end);
 
   @override
   BarChartData lerp(double t) => begin.lerp(begin, end, t);
-
 }

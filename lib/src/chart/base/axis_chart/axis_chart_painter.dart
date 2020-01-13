@@ -12,7 +12,8 @@ import 'axis_chart_data.dart';
 /// in child classes -> [BarChartPainter], [LineChartPainter]
 /// [data] is the currently showing data (it may produced by an animation using lerp function),
 /// [targetData] is the target data, that animation is going to show (if animating)
-abstract class AxisChartPainter<D extends AxisChartData> extends BaseChartPainter<D> {
+abstract class AxisChartPainter<D extends AxisChartData>
+    extends BaseChartPainter<D> {
   Paint gridPaint, backgroundPaint;
 
   AxisChartPainter(D data, D targetData, {double textScale})
@@ -30,7 +31,6 @@ abstract class AxisChartPainter<D extends AxisChartData> extends BaseChartPainte
     drawGrid(canvas, size);
   }
 
-
   void drawAxisTitles(Canvas canvas, Size viewSize) {
     if (!data.axisTitleData.show) {
       return;
@@ -43,7 +43,7 @@ abstract class AxisChartPainter<D extends AxisChartData> extends BaseChartPainte
     final leftTitle = axisTitles.leftTitle;
     if (leftTitle.showTitle) {
       final TextSpan span =
-      TextSpan(style: leftTitle.textStyle, text: leftTitle.titleText);
+          TextSpan(style: leftTitle.textStyle, text: leftTitle.titleText);
       final TextPainter tp = TextPainter(
           text: span,
           textAlign: leftTitle.textAlign,
@@ -63,7 +63,7 @@ abstract class AxisChartPainter<D extends AxisChartData> extends BaseChartPainte
     final topTitle = axisTitles.topTitle;
     if (topTitle.showTitle) {
       final TextSpan span =
-      TextSpan(style: topTitle.textStyle, text: topTitle.titleText);
+          TextSpan(style: topTitle.textStyle, text: topTitle.titleText);
       final TextPainter tp = TextPainter(
           text: span,
           textAlign: topTitle.textAlign,
@@ -78,7 +78,7 @@ abstract class AxisChartPainter<D extends AxisChartData> extends BaseChartPainte
     final rightTitle = axisTitles.rightTitle;
     if (rightTitle.showTitle) {
       final TextSpan span =
-      TextSpan(style: rightTitle.textStyle, text: rightTitle.titleText);
+          TextSpan(style: rightTitle.textStyle, text: rightTitle.titleText);
       final TextPainter tp = TextPainter(
           text: span,
           textAlign: rightTitle.textAlign,
@@ -101,7 +101,7 @@ abstract class AxisChartPainter<D extends AxisChartData> extends BaseChartPainte
     final bottomTitle = axisTitles.bottomTitle;
     if (bottomTitle.showTitle) {
       final TextSpan span =
-      TextSpan(style: bottomTitle.textStyle, text: bottomTitle.titleText);
+          TextSpan(style: bottomTitle.textStyle, text: bottomTitle.titleText);
       final TextPainter tp = TextPainter(
           text: span,
           textAlign: bottomTitle.textAlign,
@@ -190,7 +190,8 @@ abstract class AxisChartPainter<D extends AxisChartData> extends BaseChartPainte
       double verticalSeek = data.minX;
       while (verticalSeek <= data.maxX) {
         if (data.gridData.checkToShowVerticalLine(verticalSeek)) {
-          final FlLine flLineStyle = data.gridData.getDrawingVerticalLine(verticalSeek);
+          final FlLine flLineStyle =
+              data.gridData.getDrawingVerticalLine(verticalSeek);
           gridPaint.color = flLineStyle.color;
           gridPaint.strokeWidth = flLineStyle.strokeWidth;
 
@@ -214,7 +215,8 @@ abstract class AxisChartPainter<D extends AxisChartData> extends BaseChartPainte
       double horizontalSeek = data.minY;
       while (horizontalSeek <= data.maxY) {
         if (data.gridData.checkToShowHorizontalLine(horizontalSeek)) {
-          final FlLine flLine = data.gridData.getDrawingHorizontalLine(horizontalSeek);
+          final FlLine flLine =
+              data.gridData.getDrawingHorizontalLine(horizontalSeek);
           gridPaint.color = flLine.color;
           gridPaint.strokeWidth = flLine.strokeWidth;
 

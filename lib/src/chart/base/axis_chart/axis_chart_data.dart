@@ -123,7 +123,8 @@ class FlGridData {
     return FlGridData(
       show: b.show,
       drawHorizontalLine: b.drawHorizontalLine,
-      horizontalInterval: lerpDouble(a.horizontalInterval, b.horizontalInterval, t),
+      horizontalInterval:
+          lerpDouble(a.horizontalInterval, b.horizontalInterval, t),
       getDrawingHorizontalLine: b.getDrawingHorizontalLine,
       checkToShowHorizontalLine: b.checkToShowHorizontalLine,
       drawVerticalLine: b.drawVerticalLine,

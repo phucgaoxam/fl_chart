@@ -10,7 +10,8 @@ import 'pie_chart.dart';
 import 'pie_chart_data.dart';
 
 /// this class will paint the [PieChart] based on the [PieChartData]
-class PieChartPainter extends BaseChartPainter<PieChartData> with TouchHandler<PieTouchResponse> {
+class PieChartPainter extends BaseChartPainter<PieChartData>
+    with TouchHandler<PieTouchResponse> {
   /// [sectionPaint] responsible to paint each section
   /// [sectionsSpaceClearPaint] responsible to clear the space between the sections
   /// [centerSpacePaint] responsible to draw the center space of our chart.
@@ -19,12 +20,10 @@ class PieChartPainter extends BaseChartPainter<PieChartData> with TouchHandler<P
   /// We hold this calculated angles to use in touch handling,
   List<double> sectionsAngle;
 
-  PieChartPainter(
-    PieChartData data,
-    PieChartData targetData,
-    Function(TouchHandler) touchHandler,
-    {double textScale}
-  ) : super(data, targetData, textScale: textScale) {
+  PieChartPainter(PieChartData data, PieChartData targetData,
+      Function(TouchHandler) touchHandler,
+      {double textScale})
+      : super(data, targetData, textScale: textScale) {
     touchHandler(this);
 
     sectionPaint = Paint()..style = PaintingStyle.stroke;
@@ -53,7 +52,8 @@ class PieChartPainter extends BaseChartPainter<PieChartData> with TouchHandler<P
     drawTexts(canvas, size);
   }
 
-  List<double> _calculateSectionsAngle(List<PieChartSectionData> sections, double sumValue) {
+  List<double> _calculateSectionsAngle(
+      List<PieChartSectionData> sections, double sumValue) {
     return sections.map((section) {
       return 360 * (section.value / sumValue);
     }).toList();
@@ -63,11 +63,13 @@ class PieChartPainter extends BaseChartPainter<PieChartData> with TouchHandler<P
     final double centerX = viewSize.width / 2;
     final double centerY = viewSize.height / 2;
 
-    canvas.drawCircle(Offset(centerX, centerY), data.centerSpaceRadius, centerSpacePaint);
+    canvas.drawCircle(
+        Offset(centerX, centerY), data.centerSpaceRadius, centerSpacePaint);
   }
 
   void drawSections(Canvas canvas, Size viewSize, List<double> sectionsAngle) {
-    canvas.saveLayer(Rect.fromLTWH(0, 0, viewSize.width, viewSize.height), Paint());
+    canvas.saveLayer(
+        Rect.fromLTWH(0, 0, viewSize.width, viewSize.height), Paint());
     final Offset center = Offset(viewSize.width / 2, viewSize.height / 2);
 
     double tempAngle = data.startDegreeOffset;
@@ -108,18 +110,22 @@ class PieChartPainter extends BaseChartPainter<PieChartData> with TouchHandler<P
 
     double tempAngle = data.startDegreeOffset;
     data.sections.asMap().forEach((index, section) {
-      final int previousIndex = index == 0 ? data.sections.length - 1 : index - 1;
+      final int previousIndex =
+          index == 0 ? data.sections.length - 1 : index - 1;
       final previousSection = data.sections[previousIndex];
 
-      final double maxSectionRadius = math.max(section.radius, previousSection.radius);
+      final double maxSectionRadius =
+          math.max(section.radius, previousSection.radius);
 
       final double startAngle = tempAngle;
       final double sweepAngle = 360 * (section.value / data.sumValue);
 
       final Offset sectionsStartFrom = center +
           Offset(
-            math.cos(radians(startAngle)) * (data.centerSpaceRadius - extraLineSize),
-            math.sin(radians(startAngle)) * (data.centerSpaceRadius - extraLineSize),
+            math.cos(radians(startAngle)) *
+                (data.centerSpaceRadius - extraLineSize),
+            math.sin(radians(startAngle)) *
+                (data.centerSpaceRadius - extraLineSize),
           );
 
       final Offset sectionsStartTo = center +
@@ -131,7 +137,8 @@ class PieChartPainter extends BaseChartPainter<PieChartData> with TouchHandler<P
           );
 
       sectionsSpaceClearPaint.strokeWidth = data.sectionsSpace;
-      canvas.drawLine(sectionsStartFrom, sectionsStartTo, sectionsSpaceClearPaint);
+      canvas.drawLine(
+          sectionsStartFrom, sectionsStartTo, sectionsSpaceClearPaint);
       tempAngle += sweepAngle;
     });
     canvas.restore();
@@ -149,17 +156,24 @@ class PieChartPainter extends BaseChartPainter<PieChartData> with TouchHandler<P
       final Offset sectionCenterOffset = center +
           Offset(
             math.cos(radians(sectionCenterAngle)) *
-                (data.centerSpaceRadius + (section.radius * section.titlePositionPercentageOffset)),
+                (data.centerSpaceRadius +
+                    (section.radius * section.titlePositionPercentageOffset)),
             math.sin(radians(sectionCenterAngle)) *
-                (data.centerSpaceRadius + (section.radius * section.titlePositionPercentageOffset)),
+                (data.centerSpaceRadius +
+                    (section.radius * section.titlePositionPercentageOffset)),
           );
 
       if (section.showTitle) {
-        final TextSpan span = TextSpan(style: section.titleStyle, text: section.title);
-        final TextPainter tp =
-            TextPainter(text: span, textAlign: TextAlign.center, textDirection: TextDirection.ltr, textScaleFactor: textScale);
+        final TextSpan span =
+            TextSpan(style: section.titleStyle, text: section.title);
+        final TextPainter tp = TextPainter(
+            text: span,
+            textAlign: TextAlign.center,
+            textDirection: TextDirection.ltr,
+            textScaleFactor: textScale);
         tp.layout();
-        tp.paint(canvas, sectionCenterOffset - Offset(tp.width / 2, tp.height / 2));
+        tp.paint(
+            canvas, sectionCenterOffset - Offset(tp.width / 2, tp.height / 2));
       }
 
       tempAngle += sweepAngle;
@@ -172,7 +186,8 @@ class PieChartPainter extends BaseChartPainter<PieChartData> with TouchHandler<P
   }
 
   /// find touched section by the value of [touchInputNotifier]
-  PieTouchResponse _getTouchedDetails(Size viewSize, FlTouchInput touchInput, List<double> sectionsAngle) {
+  PieTouchResponse _getTouchedDetails(
+      Size viewSize, FlTouchInput touchInput, List<double> sectionsAngle) {
     final center = Offset(viewSize.width / 2, viewSize.height / 2);
 
     if (touchInput.getOffset() == null) {
@@ -220,7 +235,8 @@ class PieChartPainter extends BaseChartPainter<PieChartData> with TouchHandler<P
       tempAngle += sectionAngle;
     }
 
-    return PieTouchResponse(foundSectionData, foundSectionDataPosition, touchAngle, touchR, touchInput);
+    return PieTouchResponse(foundSectionData, foundSectionDataPosition,
+        touchAngle, touchR, touchInput);
   }
 
   @override

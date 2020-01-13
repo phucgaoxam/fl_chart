@@ -38,7 +38,8 @@ class LineChartSample5 extends StatelessWidget {
             return MapEntry(
               index,
               [
-                LineBarSpot(tooltipsOnBar, lineBarsData.indexOf(tooltipsOnBar), tooltipsOnBar.spots[index]),
+                LineBarSpot(tooltipsOnBar, lineBarsData.indexOf(tooltipsOnBar),
+                    tooltipsOnBar.spots[index]),
               ],
             );
           }).toList(),
@@ -51,7 +52,8 @@ class LineChartSample5 extends StatelessWidget {
                     return lineBarsSpot.map((lineBarSpot) {
                       return LineTooltipItem(
                         lineBarSpot.y.toString(),
-                        TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                        TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
                       );
                     }).toList();
                   })),

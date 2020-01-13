@@ -45,7 +45,9 @@ class BarChartSample1State extends State<BarChartSample1> {
                   Text(
                     'Mingguan',
                     style: TextStyle(
-                        color: const Color(0xff0f4a3c), fontSize: 24, fontWeight: FontWeight.bold),
+                        color: const Color(0xff0f4a3c),
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 4,
@@ -53,7 +55,9 @@ class BarChartSample1State extends State<BarChartSample1> {
                   Text(
                     'Grafik konsumsi kalori',
                     style: TextStyle(
-                        color: const Color(0xff379982), fontSize: 18, fontWeight: FontWeight.bold),
+                        color: const Color(0xff379982),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 38,
@@ -61,7 +65,8 @@ class BarChartSample1State extends State<BarChartSample1> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: BarChart(isPlaying ? randomData() : mainBarData(),
+                      child: BarChart(
+                        isPlaying ? randomData() : mainBarData(),
                         swapAnimationDuration: animDuration,
                       ),
                     ),
@@ -106,19 +111,22 @@ class BarChartSample1State extends State<BarChartSample1> {
     double width = 22,
     List<int> showTooltips = const [],
   }) {
-    return BarChartGroupData(x: x, barRods: [
-      BarChartRodData(
-        y: isTouched ? y + 1 : y,
-        color: isTouched ? Colors.yellow : barColor,
-        width: width,
-        isRound: true,
-        backDrawRodData: BackgroundBarChartRodData(
-          show: true,
-          y: 20,
-          color: barBackgroundColor,
+    return BarChartGroupData(
+      x: x,
+      barRods: [
+        BarChartRodData(
+          y: isTouched ? y + 1 : y,
+          color: isTouched ? Colors.yellow : barColor,
+          width: width,
+          isRound: true,
+          backDrawRodData: BackgroundBarChartRodData(
+            show: true,
+            y: 20,
+            color: barBackgroundColor,
+          ),
         ),
-      ),
-    ], showingTooltipIndicators: showTooltips,
+      ],
+      showingTooltipIndicators: showTooltips,
     );
   }
 
@@ -146,53 +154,53 @@ class BarChartSample1State extends State<BarChartSample1> {
   BarChartData mainBarData() {
     return BarChartData(
       barTouchData: BarTouchData(
-        touchTooltipData: BarTouchTooltipData(
-            tooltipBgColor: Colors.blueGrey,
-            getTooltipItem: (group, groupIndex, rod, rodIndex) {
-              String weekDay;
-              switch (group.x.toInt()) {
-                case 0:
-                  weekDay = 'Monday';
-                  break;
-                case 1:
-                  weekDay = 'Tuesday';
-                  break;
-                case 2:
-                  weekDay = 'Wednesday';
-                  break;
-                case 3:
-                  weekDay = 'Thursday';
-                  break;
-                case 4:
-                  weekDay = 'Friday';
-                  break;
-                case 5:
-                  weekDay = 'Saturday';
-                  break;
-                case 6:
-                  weekDay = 'Sunday';
-                  break;
+          touchTooltipData: BarTouchTooltipData(
+              tooltipBgColor: Colors.blueGrey,
+              getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                String weekDay;
+                switch (group.x.toInt()) {
+                  case 0:
+                    weekDay = 'Monday';
+                    break;
+                  case 1:
+                    weekDay = 'Tuesday';
+                    break;
+                  case 2:
+                    weekDay = 'Wednesday';
+                    break;
+                  case 3:
+                    weekDay = 'Thursday';
+                    break;
+                  case 4:
+                    weekDay = 'Friday';
+                    break;
+                  case 5:
+                    weekDay = 'Saturday';
+                    break;
+                  case 6:
+                    weekDay = 'Sunday';
+                    break;
+                }
+                return BarTooltipItem(weekDay + '\n' + (rod.y - 1).toString(),
+                    TextStyle(color: Colors.yellow));
+              }),
+          touchCallback: (barTouchResponse) {
+            setState(() {
+              if (barTouchResponse.spot != null &&
+                  barTouchResponse.touchInput is! FlPanEnd &&
+                  barTouchResponse.touchInput is! FlLongPressEnd) {
+                touchedIndex = barTouchResponse.spot.touchedBarGroupIndex;
+              } else {
+                touchedIndex = -1;
               }
-              return BarTooltipItem(weekDay + '\n' + (rod.y - 1).toString(),
-                  TextStyle(color: Colors.yellow));
-            }),
-        touchCallback: (barTouchResponse) {
-          setState(() {
-            if (barTouchResponse.spot != null &&
-              barTouchResponse.touchInput is! FlPanEnd &&
-              barTouchResponse.touchInput is! FlLongPressEnd) {
-              touchedIndex = barTouchResponse.spot.touchedBarGroupIndex;
-            } else {
-              touchedIndex = -1;
-            }
-          });
-        }
-      ),
+            });
+          }),
       titlesData: FlTitlesData(
         show: true,
         bottomTitles: SideTitles(
             showTitles: true,
-            textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+            textStyle: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
             margin: 16,
             getTitles: (double value) {
               switch (value.toInt()) {
@@ -234,7 +242,8 @@ class BarChartSample1State extends State<BarChartSample1> {
         show: true,
         bottomTitles: SideTitles(
             showTitles: true,
-            textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+            textStyle: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
             margin: 16,
             getTitles: (double value) {
               switch (value.toInt()) {
@@ -267,25 +276,32 @@ class BarChartSample1State extends State<BarChartSample1> {
         switch (i) {
           case 0:
             return makeGroupData(0, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 1:
             return makeGroupData(1, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 2:
             return makeGroupData(2, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 3:
             return makeGroupData(3, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 4:
             return makeGroupData(4, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 5:
             return makeGroupData(5, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 6:
             return makeGroupData(6, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           default:
             return null;
         }

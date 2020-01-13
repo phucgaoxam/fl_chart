@@ -40,8 +40,8 @@ class PieChartState extends AnimatedWidgetBaseState<PieChart> {
         if (chartSize == null) {
           return;
         }
-        final PieTouchResponse response =
-            _touchHandler?.handleTouch(FlLongPressStart(d.localPosition), chartSize);
+        final PieTouchResponse response = _touchHandler?.handleTouch(
+            FlLongPressStart(d.localPosition), chartSize);
         if (_canHandleTouch(response, touchData)) {
           touchData.touchCallback(response);
         }
@@ -52,8 +52,8 @@ class PieChartState extends AnimatedWidgetBaseState<PieChart> {
           return;
         }
 
-        final PieTouchResponse response =
-            _touchHandler?.handleTouch(FlLongPressEnd(d.localPosition), chartSize);
+        final PieTouchResponse response = _touchHandler?.handleTouch(
+            FlLongPressEnd(d.localPosition), chartSize);
         if (_canHandleTouch(response, touchData)) {
           touchData.touchCallback(response);
         }
@@ -64,8 +64,8 @@ class PieChartState extends AnimatedWidgetBaseState<PieChart> {
           return;
         }
 
-        final PieTouchResponse response =
-            _touchHandler?.handleTouch(FlLongPressMoveUpdate(d.localPosition), chartSize);
+        final PieTouchResponse response = _touchHandler?.handleTouch(
+            FlLongPressMoveUpdate(d.localPosition), chartSize);
         if (_canHandleTouch(response, touchData)) {
           touchData.touchCallback(response);
         }
@@ -76,8 +76,9 @@ class PieChartState extends AnimatedWidgetBaseState<PieChart> {
           return;
         }
 
-        final PieTouchResponse response =
-            _touchHandler?.handleTouch(FlPanEnd(Offset.zero, Velocity(pixelsPerSecond: Offset.zero)), chartSize);
+        final PieTouchResponse response = _touchHandler?.handleTouch(
+            FlPanEnd(Offset.zero, Velocity(pixelsPerSecond: Offset.zero)),
+            chartSize);
         if (_canHandleTouch(response, touchData)) {
           touchData.touchCallback(response);
         }
@@ -88,8 +89,8 @@ class PieChartState extends AnimatedWidgetBaseState<PieChart> {
           return;
         }
 
-        final PieTouchResponse response =
-            _touchHandler?.handleTouch(FlPanEnd(Offset.zero, details.velocity), chartSize);
+        final PieTouchResponse response = _touchHandler?.handleTouch(
+            FlPanEnd(Offset.zero, details.velocity), chartSize);
         if (_canHandleTouch(response, touchData)) {
           touchData.touchCallback(response);
         }
@@ -100,8 +101,8 @@ class PieChartState extends AnimatedWidgetBaseState<PieChart> {
           return;
         }
 
-        final PieTouchResponse response =
-            _touchHandler?.handleTouch(FlPanStart(details.localPosition), chartSize);
+        final PieTouchResponse response = _touchHandler?.handleTouch(
+            FlPanStart(details.localPosition), chartSize);
         if (_canHandleTouch(response, touchData)) {
           touchData.touchCallback(response);
         }
@@ -112,8 +113,8 @@ class PieChartState extends AnimatedWidgetBaseState<PieChart> {
           return;
         }
 
-        final PieTouchResponse response =
-            _touchHandler?.handleTouch(FlPanMoveUpdate(details.localPosition), chartSize);
+        final PieTouchResponse response = _touchHandler?.handleTouch(
+            FlPanMoveUpdate(details.localPosition), chartSize);
         if (_canHandleTouch(response, touchData)) {
           touchData.touchCallback(response);
         }
@@ -136,12 +137,15 @@ class PieChartState extends AnimatedWidgetBaseState<PieChart> {
   }
 
   bool _canHandleTouch(PieTouchResponse response, PieTouchData touchData) {
-    return response != null && touchData != null && touchData.touchCallback != null;
+    return response != null &&
+        touchData != null &&
+        touchData.touchCallback != null;
   }
 
   Size _getChartSize() {
     if (_chartKey.currentContext != null) {
-      final RenderBox containerRenderBox = _chartKey.currentContext.findRenderObject();
+      final RenderBox containerRenderBox =
+          _chartKey.currentContext.findRenderObject();
       if (containerRenderBox.hasSize) {
         return containerRenderBox.size;
       }
